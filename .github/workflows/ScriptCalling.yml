@@ -2,6 +2,10 @@ name: ScriptCalling
  
 on:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
     
 jobs:
   update-json:
