@@ -13,7 +13,7 @@ jobs:
         run: |
           PAT=$PAT  # Replace with your PAT stored as a secret
           WORKFLOW_NAME="ScriptCalling"  # Replace with your workflow name
-          URL="https://api.github.com/repos/mspriya92/ProjectTest/actions/workflows"
+          URL="https://api.github.com/repos/mspriya92/ProjectTest/workflows"
           WORKFLOW_ID=$(curl -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $PAT" $URL | jq -r '.workflows[] | select(.name == "'"$WORKFLOW_NAME"'") | .id')
           echo "Workflow ID: $WORKFLOW_ID"
 
