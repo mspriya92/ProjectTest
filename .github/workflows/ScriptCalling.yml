@@ -1,16 +1,9 @@
 name: ScriptCalling
- 
-on:
+
+on: 
   workflow_dispatch:
-    #inputs:
-      #environment:
-        #required: true
-        #type: string
-    
+
 jobs:
-  #update-json:
-    #runs-on: self-hosted
-    #jobs:
   get_workflow_id:
     runs-on: self-hosted
     steps:
@@ -24,17 +17,3 @@ jobs:
           WORKFLOW_ID=$(curl -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $PAT" $URL | jq -r '.workflows[] | select(.name == "'"$WORKFLOW_NAME"'") | .id')
           echo "Workflow ID: $WORKFLOW_ID"
 
-    #environment: ${{ github.event.inputs.environment }}
-    #steps:
-     #- name: Checkout files
-       #uses: Bhacaz/checkout-files@v2
-       #with:
-         #files: update-and-encrypt.ps1
-     #- name: Download and update nsi.json with secrets
-       #env:
-            #DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            #DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-            #prod_API_KEY: ${{ secrets.API_KEY }}
-            #run: update-and-encrypt.ps1
-       
-       
