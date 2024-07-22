@@ -5,7 +5,7 @@ on:
 
 jobs:
   get_workflow_id:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Get workflow ID using API
         env:
