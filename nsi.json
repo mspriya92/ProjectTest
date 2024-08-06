@@ -2,6 +2,7 @@
  "Sphere": {
  "dockerUsername": "",
  "dockerPassword": "",
- "APIkey": ""
+ "APIkey": "",
+ "APIvalue": ""
 }
 }
