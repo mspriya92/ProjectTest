@@ -3,6 +3,7 @@
  "dockerUsername": "",
  "dockerPassword": "",
  "APIkey": "",
- "APIvalue": ""
+ "APIvalue": "",
+ "APIconfig": ""
 }
 }
