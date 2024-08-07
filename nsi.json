@@ -4,6 +4,6 @@
  "dockerPassword": "",
  "APIkey": "",
  "APIvalue": "",
- "APIconfig": ""
+ "AppConfigEndpoint": ""
 }
 }
