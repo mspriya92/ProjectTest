@@ -3,6 +3,7 @@
  "dockerUsername": "",
  "dockerPassword": "",
  "APIkey": "",
- "AppConfigEndpoint": ""
+ "AppConfigEndpoint": "",
+  "keyvaultvalue": ""
 }
 }
