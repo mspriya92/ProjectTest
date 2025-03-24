@@ -1,14 +1,17 @@
 package hello;
 
-import org.joda.time.LocalTime;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
 
-public class HelloWorld {
-  public static void main(String[] args) {
-    LocalTime currentTime = new LocalTime();
-    System.out.println("The current local time is: " + currentTime);
-    Greeter greeter = new Greeter();
-    Runner runner = new Runner();
-    System.out.println(greeter.sayHello());
-    System.out.println(runner.sayRunner());
+import org.junit.Test;
+
+public class RunnerTest {
+  
+  private Runner runner = new Runner();
+
+  @Test
+  public void runnerSaysRunner() {
+    assertThat(runner.sayRunner(), containsString("Test"));
   }
+
 }
