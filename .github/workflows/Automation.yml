@@ -51,6 +51,9 @@ jobs:
       if: ${{ env.RUN_TESTS != 'all' }}
       run: mvn -Dtest=${{ env.TEST_CLASS }} test -B
 
+    - name: List files in reports directory
+      run: ls -R reports  # Verify the files are in the reports directory
+
     - name: Deploy to GitHub Pages
       #if: github.ref == 'refs/heads/main'  # Only deploy on main branch
       uses: peaceiris/actions-gh-pages@v3
