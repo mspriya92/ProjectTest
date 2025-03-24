@@ -55,6 +55,6 @@ jobs:
       #if: github.ref == 'refs/heads/main'  # Only deploy on main branch
       uses: peaceiris/actions-gh-pages@v3
       with:
-        folder: .  # Path to the folder containing the index.html file
+        folder: reports  # Path to the folder containing the index.html file
         target_branch: gh-pages  # Deploy to the gh-pages branch
         github_token: ${{ secrets.PAT_TOKEN }}  # GitHub token for authentication   
