@@ -67,3 +67,6 @@ jobs:
         enable_jekyll: false  # Disable Jekyll (if not using it)
         disable_nojekyll: false  # Ensure the '.nojekyll' file is included
         exclude_assets: .github 
+
+    - name: Notify GitHub Pages URL
+      run: echo "Your site is live at https://mspriya92.github.io/ProjectTest/"
