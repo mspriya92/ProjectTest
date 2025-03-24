@@ -55,6 +55,13 @@ jobs:
       #if: github.ref == 'refs/heads/main'  # Only deploy on main branch
       uses: peaceiris/actions-gh-pages@v3
       with:
-        folder: reports  # Path to the folder containing the index.html file
+        folder: reports  # Pointing to the 'reports' directory
         target_branch: gh-pages  # Deploy to the gh-pages branch
-        github_token: ${{ secrets.PAT_TOKEN }}  # GitHub token for authentication   
+        github_token: ${{ secrets.PAT_TOKEN }}
+        publish_branch: gh-pages  # Make sure it's pushing to the gh-pages branch
+        allow_empty_commit: false
+        keep_files: false
+        force_orphan: false
+        enable_jekyll: false
+        disable_nojekyll: false
+        exclude_assets: .github  
