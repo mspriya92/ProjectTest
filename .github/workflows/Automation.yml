@@ -1,28 +1,18 @@
-name: AutomationTesting
+name: AutomationOnSchedule
 
+# Trigger the workflow to run on a daily schedule at midnight UTC.
 on:
- #schedule:
-    #- cron: '10 11 * * *'  # Runs daily at midnight UTC
- workflow_dispatch:
-   inputs:
-      run_tests:
-        description: 'Run Single Test or All Tests'
-        required: true
-        default: 'all'  # 'single' to run a specific test, 'all' to run all tests
-      test_class:
-        description: 'Test class to run (only required if run_tests is "single")'
-        type: choice
-        options:
-          - GreeterTest.java
-          - RunnerTest.java
-        required: false  # This will only be used if 'run_tests' is 'single'
+  workflow_dispatch:
+  #schedule:
+    #- cron: '0 10 * * 5' #(which corresponds to 15:00 IST)
+    #- cron: '0 0 * * *'  # Runs daily at midnight UTC
 
 jobs:
-  build_test_publish:
-    runs-on: ubuntu-latest  
+  build_and_test:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the repository
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up JDK 17
@@ -30,62 +20,34 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
 
     - name: Cache Maven dependencies
       uses: actions/cache@v2
       with:
-       path: ~/.m2/repository
-       key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-       restore-keys: |
-         ${{ runner.os }}-maven-
-    - name: Set environment variable based on trigger type (on-schedule vs workflow_dispatch)
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Set environment variable to control test behavior
       run: |
-        # For on-schedule event, default to 'all' tests
-        if [[ "${{ github.event_name }}" == "schedule" ]]; then
-          echo "RUN_TESTS=all" >> $GITHUB_ENV
-        else
-          echo "RUN_TESTS=${{ github.event.inputs.run_tests }}" >> $GITHUB_ENV
-          if [[ "${{ github.event.inputs.run_tests }}" == "single" ]]; then
-            echo "TEST_CLASS=${{ github.event.inputs.test_class }}" >> $GITHUB_ENV
-          fi
-        fi
+        # Here, you can set the value of 'RUN_TESTS' to control whether to run all tests or a single test.
+        # You can set this directly in the workflow or use GitHub's API or commit history to decide.
+        # Default behavior is to run all tests.
+        echo "RUN_TESTS=all" >> $GITHUB_ENV  # Default to running all tests
+        
+        # You can also override the value of RUN_TESTS by passing it through the workflow environment
+        # For example, to test only a specific class, you can modify RUN_TESTS in the workflow.
+        # In this example, we manually set a test class name for demonstration purposes.
+        # Uncomment the next line if you want to run a single test (remove echo line above).
+        #echo "RUN_TESTS=single" >> $GITHUB_ENV
+        #echo "TEST_CLASS=GreeterTest" >> $GITHUB_ENV
 
     - name: Run all tests (default behavior if RUN_TESTS=all)
       if: ${{ env.RUN_TESTS == 'all' }}
       run: mvn clean test -B
 
-    - name: Run single test (if RUN_TESTS=single)
-      if: ${{ env.RUN_TESTS == 'single' }}
+    - name: Run single test (if RUN_TESTS is not 'all')
+      if: ${{ env.RUN_TESTS != 'all' }}
       run: mvn -Dtest=${{ env.TEST_CLASS }} test -B
-
-    - name: Upload Summary
-      uses: actions/upload-artifact@v3
-      with:
-       name: summary-artifact
-       path: ./test.html
    
-    - name: Print URL for index.html
-      run: |
-        # Assuming your test results are in a folder named 'reports'
-        #test_report_url="https://raw.githubusercontent.com/mspriya92/JavaApp/main/index.html"
-        test_report_url="https://mspriya92.github.io/JavaApp/Test.html"
-        #https://mspriya92.github.io/JavaApp/
-        echo "Test Report URL: $test_report_url" >> $GITHUB_STEP_SUMMARY
-    - name: print summary output
-      run:
-         cat index.html >> $GITHUB_STEP_SUMMARY
-        
-
-    - name: Send mail
-      uses: dawidd6/action-send-mail@v3
-      with:
-          to: divyasp1012@gmail.com
-          subject: Github Actions job result
-          body: Build job of ${{ github.repository }} completed successfully!
-          html_body: file:/index.html
-          from: divya.prabhavathi
-          server_address: smtp.gmail.com # Replace with your SMTP server address
-          server_port: 25  # Common SMTP port (use 465 for SSL, 25 for non-secure)
-          username: Divya S P   # Your email username
-          password: eggq wkgg ijui rzir
