@@ -50,4 +50,11 @@ jobs:
     - name: Run single test (if RUN_TESTS is not 'all')
       if: ${{ env.RUN_TESTS != 'all' }}
       run: mvn -Dtest=${{ env.TEST_CLASS }} test -B
-   
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'  # Only deploy on main branch
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        folder: Coverlet/Reports  # Path to the folder containing the index.html file
+        target_branch: gh-pages  # Deploy to the gh-pages branch
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication   
