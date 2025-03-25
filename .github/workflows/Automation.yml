@@ -71,11 +71,14 @@ jobs:
         
     #- name: List files in reports directory
       #run: ls -R "${{ github.workspace }}" # Verify the files are in the reports directory
-        
-    - name: Copy `index.html` to `docs/` Folder
+    - name: Create docs directory and copy index.html
       run: |
+        # Create the docs folder if it doesn't exist
         mkdir -p docs
+        # Copy the index.html from reports directory to docs
         cp -f "${{ github.workspace }}/reports/index.html" docs/index.html
+        # List files to confirm the copy operation was successful
+        ls -R docs   
  
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
