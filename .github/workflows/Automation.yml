@@ -51,9 +51,6 @@ jobs:
       if: ${{ env.RUN_TESTS != 'all' }}
       run: mvn -Dtest=${{ env.TEST_CLASS }} test -B
 
-    - name: List files in reports directory
-      run: ls -R reports  # Verify the files are in the reports directory
-
     #- name: Deploy to GitHub Pages
       #if: github.ref == 'refs/heads/main'  # Only deploy on main branch
       #uses: peaceiris/actions-gh-pages@v3
@@ -71,6 +68,9 @@ jobs:
     - name: testing workspace location
       run: |
         echo "location=${{ github.workspace }}" 
+        
+    - name: List files in reports directory
+      run: ls -R "${{ github.workspace }}" # Verify the files are in the reports directory
         
     #- name: Copy `index.html` to `docs/` Folder
       #run: |
