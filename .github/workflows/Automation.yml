@@ -65,24 +65,24 @@ jobs:
         #disable_nojekyll: false  # Ensure the '.nojekyll' file is included
         #exclude_assets: .github 
    
-    - name: testing workspace location
-      run: |
-        echo "location=${{ github.workspace }}" 
-        
-    - name: List files in reports directory
-      run: ls -R "${{ github.workspace }}" # Verify the files are in the reports directory
-        
-    #- name: Copy `index.html` to `docs/` Folder
+    #- name: testing workspace location
       #run: |
-        #mkdir -p docs
-        #copy /Y ${{ github.workspace }}\Coverlet\Reports\index.html docs\index.html
+        #echo "location=${{ github.workspace }}" 
+        
+    #- name: List files in reports directory
+      #run: ls -R "${{ github.workspace }}" # Verify the files are in the reports directory
+        
+    - name: Copy `index.html` to `docs/` Folder
+      run: |
+        mkdir -p docs
+        cp -f "${{ github.workspace }}/reports/index.html" docs/index.html
  
-    #- name: Deploy to GitHub Pages
-      #uses: peaceiris/actions-gh-pages@v3
-      #with:
-        #github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided token for authentication
-        #source_dir: 'docs'  # The folder that contains the index.html file
-        #destination_branch: 'DS-587branch'
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.PAT_TOKEN }}  # Automatically provided token for authentication
+        source_dir: 'docs'  # The folder that contains the index.html file
+        destination_branch: 'master'
 
     - name: Notify GitHub Pages URL
       run: echo "Your site is live at https://mspriya92.github.io/ProjectTest/"
