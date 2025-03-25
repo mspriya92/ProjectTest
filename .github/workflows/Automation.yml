@@ -80,17 +80,13 @@ jobs:
         # List files to confirm the copy operation was successful
         ls -R docs
         
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.PAT_TOKEN }}  # Automatically provided token for authentication
-        publish_dir: docs  # The folder containing index.html
-        destination_branch: 'master'  # The branch to deploy to
-        allow_empty_commit: false  # Avoid empty commits
-        keep_files: false  # Remove old files on the target branch
-        force_orphan: false  # Do not create orphan branch
-        enable_jekyll: false  # Disable Jekyll if you're not using it
-        disable_nojekyll: true
+    - name: Commit and push to DS-587-deploy branch
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git add docs/
+        git commit -m "Deploy website to GitHub Pages"
+        git push origin master  # Pushing to your custom branch (DS-587-deploy)
 
     - name: Notify GitHub Pages URL
       run: |
