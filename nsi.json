@@ -1,9 +1,0 @@
-{
- "Sphere": {
- "dockerUsername": "",
- "dockerPassword": "",
- "APIkey": "",
- "AppConfigEndpoint": "",
-  "keyvaultvalue": ""
-}
-}
