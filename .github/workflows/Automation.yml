@@ -85,4 +85,10 @@ jobs:
         destination_branch: 'master'
 
     - name: Notify GitHub Pages URL
-      run: echo "Your site is live at https://mspriya92.github.io/ProjectTest/"
+      run: |
+        REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+        USERNAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
+        LIVE_URL="https://${USERNAME}.github.io/${REPO_NAME}/"
+        echo "Your site is live at $LIVE_URL"
+    #- name: Notify GitHub Pages URL
+      #run: echo "Your site is live at https://mspriya92.github.io/ProjectTest/"
