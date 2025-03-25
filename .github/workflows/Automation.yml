@@ -54,19 +54,35 @@ jobs:
     - name: List files in reports directory
       run: ls -R reports  # Verify the files are in the reports directory
 
-    - name: Deploy to GitHub Pages
+    #- name: Deploy to GitHub Pages
       #if: github.ref == 'refs/heads/main'  # Only deploy on main branch
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: reports
-        publish_branch: gh-pages  # Deploy to the 'gh-pages' branch
-        github_token: ${{ secrets.PAT_TOKEN }}  # Personal Access Token for authentication
-        allow_empty_commit: false  # Don't allow empty commits
-        keep_files: false  # Remove old files from the gh-pages branch
-        force_orphan: false  # Don't create orphan branch
-        enable_jekyll: false  # Disable Jekyll (if not using it)
-        disable_nojekyll: false  # Ensure the '.nojekyll' file is included
-        exclude_assets: .github 
+      #uses: peaceiris/actions-gh-pages@v3
+      #with:
+        #publish_dir: reports
+        #publish_branch: gh-pages  # Deploy to the 'gh-pages' branch
+        #github_token: ${{ secrets.PAT_TOKEN }}  # Personal Access Token for authentication
+        #allow_empty_commit: false  # Don't allow empty commits
+        #keep_files: false  # Remove old files from the gh-pages branch
+        #force_orphan: false  # Don't create orphan branch
+        #enable_jekyll: false  # Disable Jekyll (if not using it)
+        #disable_nojekyll: false  # Ensure the '.nojekyll' file is included
+        #exclude_assets: .github 
+   
+    - name: testing workspace location
+      run: |
+        echo "location=${{ github.workspace }}" 
+        
+    #- name: Copy `index.html` to `docs/` Folder
+      #run: |
+        #mkdir -p docs
+        #copy /Y ${{ github.workspace }}\Coverlet\Reports\index.html docs\index.html
+ 
+    #- name: Deploy to GitHub Pages
+      #uses: peaceiris/actions-gh-pages@v3
+      #with:
+        #github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided token for authentication
+        #source_dir: 'docs'  # The folder that contains the index.html file
+        #destination_branch: 'DS-587branch'
 
     - name: Notify GitHub Pages URL
       run: echo "Your site is live at https://mspriya92.github.io/ProjectTest/"
