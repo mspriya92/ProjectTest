@@ -84,7 +84,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.PAT_TOKEN }}  # Automatically provided token for authentication
-        source_dir: 'docs'  # The folder containing index.html
+        publish_dir: docs  # The folder containing index.html
         destination_branch: 'master'  # The branch to deploy to
         allow_empty_commit: false  # Avoid empty commits
         keep_files: false  # Remove old files on the target branch
